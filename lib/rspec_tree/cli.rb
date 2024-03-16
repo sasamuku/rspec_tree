@@ -3,14 +3,14 @@ require "rspec_tree/tree"
 
 module RspecTree
   class CLI < Thor
-    desc "all", "Print all"
+    desc "all [file]", "Print all (describe, context, it, etc.)"
     def all(file)
       File.open(file, "r") do |f|
         Tree.all(f.read)
       end
     end
 
-    desc "ctx", "Print describe and context"
+    desc "ctx [file]", "Print only describe and context"
     def ctx(file)
       File.open(file, "r") do |f|
         Tree.ctx(f.read)
