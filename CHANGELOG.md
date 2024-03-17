@@ -1,9 +1,15 @@
 ## [Unreleased]
 
-## [0.1.0] - 2024-03-07
+## [0.1.2] - 2024-03-17
 
-- Initial release
+- Fix nested context
+- Support context mode
 
 ## [0.1.1] - 2024-03-16
 
 - Fix commnad description
+
+## [0.1.0] - 2024-03-07
+
+- Initial release
+
