@@ -37,11 +37,11 @@ module RspecTree
     end
 
     def it(*args, &_block)
-      tree(args.first, "it")
+      tree(args.first, "it") if type == :all
     end
 
     def it_behaves_like(*args, &_block)
-      tree(args.first, "it_behaves_like")
+      tree(args.first, "it_behaves_like") if type == :all
     end
 
     def dash
