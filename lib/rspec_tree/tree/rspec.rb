@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RspecTree
-  module Tree
+  class Tree
     # This module is used to override the RSpec module
     module RSpec
       class << self
