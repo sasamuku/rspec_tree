@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require "thor"
 require "rspec_tree/tree"
 
 module RspecTree
+  # This class is used to define the CLI
   class CLI < Thor
     desc "all [file]", "Print all (describe, context, it, etc.)"
     def all(file)
