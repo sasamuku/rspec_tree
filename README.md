@@ -16,13 +16,26 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ```
 $ rspec_tree all /path/to/your_spec.rb
-desc: YourClass
-├──ctx: when the version is 0.1.0
-├────it: has a version number
-├────it: does something useful
-├──ctx: when the version is 0.1.1
-├────it: has a version number
-├────it: does something useful
+desc: Sample
+desc: First describe
+├─────ctx: First context
+├───────it: should do something
+├───────ctx: First nested context
+├─────────it: should do something
+├───────it_behaves_like: shared example
+desc: Second describe
+├─────ctx: Second context
+├───────it: should do something else
+```
+
+```
+$ rspec_tree ctx /path/to/your_spec.rb
+desc: Sample
+desc: First describe
+├─────ctx: First context
+├───────ctx: First nested context
+desc: Second describe
+├─────ctx: Second context
 ```
 
 ```
