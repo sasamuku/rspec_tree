@@ -22,17 +22,9 @@ module RspecTree
 
     class << self
       # @param [String] file
-      def all(file)
-        # rubocop:disable Security/Eval
-        eval(file)
-        # rubocop:enable Security/Eval
-      end
-
-      # TODO: to be implemented
-      def ctx(file)
-        # rubocop:disable Security/Eval
-        eval(file)
-        # rubocop:enable Security/Eval
+      # @param [Symbol] type
+      def print(file, _type)
+        eval(file) # rubocop:disable Security/Eval
       end
 
       private

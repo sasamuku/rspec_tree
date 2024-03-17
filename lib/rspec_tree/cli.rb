@@ -9,14 +9,14 @@ module RspecTree
     desc "all [file]", "Print all (describe, context, it, etc.)"
     def all(file)
       File.open(file, "r") do |f|
-        Tree.all(f.read)
+        Tree.print(f.read, :all)
       end
     end
 
     desc "ctx [file]", "Print only describe and context"
     def ctx(file)
       File.open(file, "r") do |f|
-        Tree.ctx(f.read)
+        Tree.print(f.read, :ctx)
       end
     end
   end

@@ -4,7 +4,7 @@ RSpec.describe RspecTree do
   let(:rspec_file) { File.read("spec/data/sample.rb") }
 
   describe ".all" do
-    subject { RspecTree::Tree.all(rspec_file) }
+    subject { RspecTree::Tree.print(rspec_file, :all) }
 
     it "prints all (describe, context, it, etc.)" do
       expect { subject }.to output(<<~OUTPUT).to_stdout
