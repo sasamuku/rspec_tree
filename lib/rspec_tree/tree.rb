@@ -1,74 +1,55 @@
 # frozen_string_literal: true
 
+require_relative "tree/rspec"
+require_relative "tree/monkey_patch"
+
 module RspecTree
   # This module is used to parse the RSpec file
   # and print the tree structure of the RSpec file.
-  module Tree
-    Class.class_eval do
-      def const_missing(name)
-        name.to_s
-      end
+  class Tree
+    attr_reader :file, :type
+    attr_accessor :base_depth
+
+    def initialize(file, type)
+      @file = file
+      @type = type
+      @base_depth = 0
     end
 
-    # This class is used to override the RSpec module
-    module RSpec
-      class << self
-        def describe(*args, &block)
-          puts "desc: #{args.first}"
-          block.call
-        end
-      end
+    def print
+      eval(file) # rubocop:disable Security/Eval
     end
 
-    class << self
-      # @param [String] file
-      def all(file)
-        # rubocop:disable Security/Eval
-        eval(file)
-        # rubocop:enable Security/Eval
-      end
+    private
 
-      # TODO: to be implemented
-      def ctx(file)
-        # rubocop:disable Security/Eval
-        eval(file)
-        # rubocop:enable Security/Eval
-      end
+    def describe(*args, &block)
+      self.base_depth = caller.size
+      RSpec.describe(*args, &block)
+    end
 
-      private
+    def context(*args, &block)
+      tree(args.first, "ctx")
+      block.call
+    end
 
-      def describe(*args, &block)
-        RSpec.describe(*args, &block)
-      end
+    def example(*args, &_block)
+      tree(args.first, "ex")
+    end
 
-      def context(*args, &block)
-        puts "├──ctx: #{args.first}"
-        block.call
-      end
+    def it(*args, &_block)
+      tree(args.first, "it")
+    end
 
-      def example(*args, &_block)
-        puts "├────ex: #{args.first}"
-      end
+    def it_behaves_like(*args, &_block)
+      tree(args.first, "it_behaves_like")
+    end
 
-      def it(*args, &_block)
-        puts "├────it: #{args.first}"
-      end
+    def dash
+      "─" * (caller.size - base_depth)
+    end
 
-      def it_behaves_like(*args, &_block)
-        puts "├────it_behaves_like: #{args.first}"
-      end
-
-      def require_relative(file); end
-
-      def require(file); end
-
-      def include(*args); end
-
-      def method_missing(method, *args, &block); end
-
-      def respond_to_missing?(method, *)
-        super
-      end
+    def tree(arg, name)
+      puts "├#{dash}#{name}: #{arg}"
     end
   end
 end
