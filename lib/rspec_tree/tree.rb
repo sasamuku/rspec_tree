@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "tree/rspec"
+
 module RspecTree
   # This module is used to parse the RSpec file
   # and print the tree structure of the RSpec file.
@@ -7,16 +9,6 @@ module RspecTree
     Class.class_eval do
       def const_missing(name)
         name.to_s
-      end
-    end
-
-    # This class is used to override the RSpec module
-    module RSpec
-      class << self
-        def describe(*args, &block)
-          puts "desc: #{args.first}"
-          block.call
-        end
       end
     end
 
