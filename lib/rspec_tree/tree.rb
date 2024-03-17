@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module RspecTree
+  # This module is used to parse the RSpec file
+  # and print the tree structure of the RSpec file.
   module Tree
     Class.class_eval do
       def const_missing(name)
@@ -8,6 +10,7 @@ module RspecTree
       end
     end
 
+    # This class is used to override the RSpec module
     module RSpec
       class << self
         def describe(*args, &block)
@@ -20,12 +23,16 @@ module RspecTree
     class << self
       # @param [String] file
       def all(file)
+        # rubocop:disable Security/Eval
         eval(file)
+        # rubocop:enable Security/Eval
       end
 
       # TODO: to be implemented
       def ctx(file)
+        # rubocop:disable Security/Eval
         eval(file)
+        # rubocop:enable Security/Eval
       end
 
       private
@@ -39,15 +46,15 @@ module RspecTree
         block.call
       end
 
-      def example(*args, &block)
+      def example(*args, &_block)
         puts "├────ex: #{args.first}"
       end
 
-      def it(*args, &block)
+      def it(*args, &_block)
         puts "├────it: #{args.first}"
       end
 
-      def it_behaves_like(*args, &block)
+      def it_behaves_like(*args, &_block)
         puts "├────it_behaves_like: #{args.first}"
       end
 
@@ -58,6 +65,10 @@ module RspecTree
       def include(*args); end
 
       def method_missing(method, *args, &block); end
+
+      def respond_to_missing?(method, *)
+        super
+      end
     end
   end
 end
