@@ -10,7 +10,7 @@ module RspecTree
     attr_reader :file, :type
     attr_accessor :base_depth
 
-    PATTERN = /[A-Z][a-zA-Z\d]*(?:::[A-Z][a-zA-Z\d]*)+/.freeze
+    PATTERN = /'*[A-Z][\w-]*(?:::[A-Z][\w-]*)+'*/.freeze
 
     def initialize(file, type)
       @file = const_to_string(file)
@@ -56,7 +56,7 @@ module RspecTree
 
     def const_to_string(str)
       str.gsub(PATTERN) do |match|
-        "'#{match}'"
+        "\"#{match}\""
       end
     end
   end
