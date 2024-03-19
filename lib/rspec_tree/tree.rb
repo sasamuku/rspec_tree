@@ -10,8 +10,10 @@ module RspecTree
     attr_reader :file, :type
     attr_accessor :base_depth
 
+    PATTERN = /[A-Z][a-zA-Z]*::[A-Z][a-zA-Z]*/.freeze
+
     def initialize(file, type)
-      @file = file
+      @file = const_to_string(file)
       @type = type
       @base_depth = 0
     end
@@ -50,6 +52,12 @@ module RspecTree
 
     def tree(arg, name)
       puts "├#{dash}#{name}: #{arg}"
+    end
+
+    def const_to_string(str)
+      str.gsub(PATTERN) do |match|
+        "'#{match}'"
+      end
     end
   end
 end
