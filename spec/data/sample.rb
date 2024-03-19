@@ -3,9 +3,12 @@
 # This file is sample RSpec for test.
 
 require "sample"
-require "sample/example"
+require_relative "sample/example"
 
-RSpec.describe Sample do # rubocop:disable Metrics/BlockLength
+RSpec.describe Sample::SampleClass do # rubocop:disable Metrics/BlockLength
+  include ExampleModule
+  include Example::SampleModule
+
   let(:foo) { "foo" }
 
   before do

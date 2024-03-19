@@ -12,7 +12,7 @@ RSpec.describe RspecTree do
 
       it "prints all" do
         expect { subject }.to output(<<~OUTPUT).to_stdout
-          desc: Sample
+          desc: Sample::SampleClass
           desc: First describe
           ├─────ctx: First context
           ├───────it: should do something
@@ -31,7 +31,7 @@ RSpec.describe RspecTree do
 
       it "prints only describe and context" do
         expect { subject }.to output(<<~OUTPUT).to_stdout
-          desc: Sample
+          desc: Sample::SampleClass
           desc: First describe
           ├─────ctx: First context
           ├───────ctx: First nested context
