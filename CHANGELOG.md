@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.3] - 2024-03-19
+
+- Fix TypeError
+
 ## [0.1.2] - 2024-03-17
 
 - Fix nested context
