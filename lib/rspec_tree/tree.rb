@@ -10,7 +10,7 @@ module RspecTree
     attr_reader :file, :type
     attr_accessor :base_depth
 
-    PATTERN = /'*[A-Z][\w-]*(?:::[A-Z][\w-]*)+'*/.freeze
+    PATTERN = /'*[::]*[A-Z][\w-]*(?:::[A-Z][\w-]*)+'*/.freeze
 
     def initialize(file, type)
       @file = const_to_string(file)
