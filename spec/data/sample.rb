@@ -10,6 +10,7 @@ RSpec.describe Sample::SampleClass do # rubocop:disable Metrics/BlockLength
   include Example::SampleModule
 
   let(:foo) { "foo" }
+  let(:obj) { ::Sample::SampleClass.new }
 
   before do
     # Setup code here

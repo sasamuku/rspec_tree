@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.1.6] - 2024-03-25
+
+- Fix SyntaxError
+
 ## [0.1.5] - 2024-03-19
 
 - Fix TypeError
