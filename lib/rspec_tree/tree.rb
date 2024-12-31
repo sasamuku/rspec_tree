@@ -1,63 +1,54 @@
 # frozen_string_literal: true
 
-require_relative "tree/rspec"
-require_relative "tree/monkey_patch"
-
 module RspecTree
-  # This module is used to parse the RSpec file
-  # and print the tree structure of the RSpec file.
   class Tree
-    attr_reader :file, :type
-    attr_accessor :base_depth
-
-    PATTERN = /'*[::]*[A-Z][\w-]*(?:::[A-Z][\w-]*)+'*/.freeze
-
-    def initialize(file, type)
-      @file = const_to_string(file)
+    def initialize(root, type)
+      @root = root
       @type = type
-      @base_depth = 0
     end
 
     def print
-      eval(file) # rubocop:disable Security/Eval
+      print_root_description(@root, 0)
     end
 
     private
 
-    def describe(*args, &block)
-      self.base_depth = caller.size
-      RSpec.describe(*args, &block)
-    end
+    def print_root_description(description, depth)
+      puts "desc: #{description.title}"
 
-    def context(*args, &block)
-      tree(args.first, "ctx")
-      block.call
-    end
-
-    def example(*args, &_block)
-      tree(args.first, "ex")
-    end
-
-    def it(*args, &_block)
-      tree(args.first, "it") if type == :all
-    end
-
-    def it_behaves_like(*args, &_block)
-      tree(args.first, "it_behaves_like") if type == :all
-    end
-
-    def dash
-      "─" * (caller.size - base_depth)
-    end
-
-    def tree(arg, name)
-      puts "├#{dash}#{name}: #{arg}"
-    end
-
-    def const_to_string(str)
-      str.gsub(PATTERN) do |match|
-        "\"#{match}\""
+      description.descriptions.each do |nested_description|
+        print_description(nested_description, depth + 1)
       end
+    end
+
+    def print_description(description, depth)
+      puts "#{indent(depth)}desc: #{description.title}"
+
+      description.contexts.each do |context|
+        print_context(context, depth + 1)
+      end
+    end
+
+    def print_context(context, depth)
+      puts "#{indent(depth)}ctx: #{context.title}"
+
+      context.contexts.each do |ctx|
+        print_context(ctx, depth + 1)
+      end
+
+      context.examples.each do |example|
+        print_example(example, depth + 1)
+      end
+    end
+
+    def print_example(example, depth)
+      return if @type == :ctx
+
+      puts "#{indent(depth)}it: #{example.title}"
+    end
+
+    def indent(level)
+      "\u251C#{"\u2500\u2500" * level}"
     end
   end
 end

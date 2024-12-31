@@ -1,6 +1,6 @@
 # RspecTree
 
-This is tree command for rspec test files.
+`RspecTree` is a command-line tool for displaying the structure of RSpec test files in a tree format. It uses [prism](https://github.com/ruby/prism), the default parser introduced in Ruby 3.4, to parse and traverse the AST.
 
 ## Installation
 
@@ -14,31 +14,42 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-```
+### Display All Describes, Contexts, and Examples
+
+Use the `all` option to print all `describe`, `context`, and `example` blocks in a file:
+
+```bash
 $ rspec_tree all /path/to/your_spec.rb
-desc: Sample
-desc: First describe
-├─────ctx: First context
-├───────it: should do something
-├───────ctx: First nested context
-├─────────it: should do something
-├───────it_behaves_like: shared example
-desc: Second describe
-├─────ctx: Second context
-├───────it: should do something else
+desc: SampleClass
+├──desc: First describe
+├────ctx: First context
+├──────ctx: First nested context
+├────────it: should do something
+├──────it: should do something
+├──desc: Second describe
+├────ctx: Second context
+├──────it: should do something else
 ```
 
-```
+### Display Only Describes and Contexts
+
+Use the `ctx` option to print only `describe` and `context` blocks:
+
+```bash
 $ rspec_tree ctx /path/to/your_spec.rb
-desc: Sample
-desc: First describe
-├─────ctx: First context
-├───────ctx: First nested context
-desc: Second describe
-├─────ctx: Second context
+desc: SampleClass
+├──desc: First describe
+├────ctx: First context
+├──────ctx: First nested context
+├──desc: Second describe
+├────ctx: Second context
 ```
 
-```
+### Display Help Information
+
+Run the `help` command to see all available commands:
+
+```bash
 $ rspec_tree help
 Commands:
   rspec_tree all [file]      # Print all (describe, context, it, etc.)
