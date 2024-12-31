@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.2.0] - 2024-12-31
+
+- Refactor to use prism parser
+
 ## [0.1.6] - 2024-03-25
 
 - Fix SyntaxError
@@ -28,4 +32,3 @@
 ## [0.1.0] - 2024-03-07
 
 - Initial release
-
