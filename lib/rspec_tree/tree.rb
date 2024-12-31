@@ -32,8 +32,8 @@ module RspecTree
     def print_context(context, depth)
       puts "#{indent(depth)}ctx: #{context.title}"
 
-      context.contexts.each do |context|
-        print_context(context, depth + 1)
+      context.contexts.each do |ctx|
+        print_context(ctx, depth + 1)
       end
 
       context.examples.each do |example|
@@ -43,11 +43,12 @@ module RspecTree
 
     def print_example(example, depth)
       return if @type == :ctx
+
       puts "#{indent(depth)}it: #{example.title}"
     end
 
     def indent(level)
-      "\u251C" + "\u2500\u2500" * level
+      "\u251C#{"\u2500\u2500" * level}"
     end
   end
 end

@@ -80,10 +80,10 @@ module RspecTree
     def call_nodes_in_block(node)
       call_nodes = []
       node.compact_child_nodes.each do |child_node|
-        if block_node?(child_node)
-          call_nodes = child_node.compact_child_nodes.first.compact_child_nodes.select do |child_node|
-            call_node?(child_node)
-          end
+        next unless block_node?(child_node)
+
+        call_nodes = child_node.compact_child_nodes.first.compact_child_nodes.select do |grand_child_node|
+          call_node?(grand_child_node)
         end
       end
       call_nodes

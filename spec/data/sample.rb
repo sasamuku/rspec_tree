@@ -5,7 +5,7 @@
 require "sample"
 require_relative "sample/example"
 
-RSpec.describe Sample::SampleClass do # rubocop:disable Metrics/BlockLength
+RSpec.describe Sample::SampleClass do
   include ExampleModule
   include Example::SampleModule
 
