@@ -90,15 +90,9 @@ module RspecTree
     end
 
     def visit_call_node(node)
-      if root_describe_node?(node)
-        handle_root_describe_node(node)
-      elsif describe_node?(node)
-        handle_describe_node(node)
-      elsif context_node?(node)
-        handle_context_node(node)
-      elsif example_node?(node)
-        handle_example_node(node)
-      end
+      return unless root_describe_node?(node)
+
+      handle_root_describe_node(node)
     end
   end
 end
